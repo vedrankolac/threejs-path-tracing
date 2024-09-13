@@ -1,8 +1,13 @@
 # parcel-threejs-boilerplate
 Boilerplate for a fast start with three.js
 
-### GitHub Page
-https://birdlaketree.github.io/parcel-threejs-boilerplate/
+### Requirements
+Node: v16.20.2
+
+### Quick Start
+```bash
+npm start
+```
 
 ### how to deploy for github pages
 ```bash

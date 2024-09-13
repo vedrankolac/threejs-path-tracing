@@ -6,6 +6,9 @@ import { createCamera } from './components/camera.js';
 import { createLights } from './components/lights.js';
 import { cube } from './components/meshes/cube.js'
 import { Resizer } from './system/Resizer.js'
+import { PlaneGeometry, Mesh, MathUtils } from 'three';
+import { colorStandardMaterial } from './components/materials/color.js';
+
 
 class World {
   constructor() {
@@ -30,6 +33,14 @@ class World {
         this.loop.updatables.push(temp_cube);
       }
     }
+
+    const geometryPlane = new PlaneGeometry(300, 300, 4, 4);
+    const materialFloor = colorStandardMaterial(0xffffff);
+    const floor = new Mesh(geometryPlane, materialFloor);
+    floor.receiveShadow = true;
+    floor.rotation.x = MathUtils.degToRad(270);
+    floor.position.y = -3;
+    this.scene.add(floor);
   }
 
   start() {
