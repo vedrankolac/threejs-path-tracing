@@ -1,13 +1,12 @@
-import {MeshStandardMaterial} from 'three';
+import {MeshPhysicalMaterial} from 'three';
 
 const colorStandardMaterial = color => {
   const parameters = {
     color: color,
-    emissive: 0x000000,
-    roughness: 0.34,
-    metalness: 0.2
+    roughness: 0.0,
+    metalness: 0.0
   } 
-  const material = new MeshStandardMaterial(parameters);
+  const material = new MeshPhysicalMaterial(parameters);
   return material;
 }
 

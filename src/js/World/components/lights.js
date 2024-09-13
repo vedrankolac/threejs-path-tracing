@@ -1,24 +1,30 @@
-import { AmbientLight, DirectionalLight, PointLight } from 'three';
+import { AmbientLight, DirectionalLight, DirectionalLightHelper } from 'three';
+import GUI from 'lil-gui';
 
 const createLights = scene => {
-  const light_ambient = new AmbientLight({ color: 0x000000, intensity: 1 })
-  scene.add(light_ambient)
+  const lightAmbient = new AmbientLight({ color: 0xffffff, intensity: 0.5 })
+  scene.add(lightAmbient)
 
-  const light = new DirectionalLight('white', 2);
+  const light = new DirectionalLight('white', 4);
+  light.castShadow = true;
+  light.shadow.mapSize.width = 1024;
+  light.shadow.mapSize.height = 1024;
   light.position.set(6, 6, 6);
   scene.add(light)
 
-  const light1 = new PointLight( 0xffffff, 200, 0 );
-  light1.position.set( 0, 200, 0 );
-  scene.add( light1 );
+  const helper = new DirectionalLightHelper(light);
+  scene.add(helper);
 
-  const light2 = new PointLight( 0xffffff, 200, 0 );
-  light2.position.set( 100, 200, 100 );
-  scene.add( light2 );
-
-  const light3 = new PointLight( 0xffffff, 200, 0 );
-  light3.position.set( - 100, - 200, - 100 );
-  scene.add( light3 );
+  const gui = new GUI();
+  const ambientLightGui = {
+    intensity: 1
+  };
+  const directionalLightGui = {
+    intensity: 1
+  };
+  
+  gui.add( ambientLightGui, 'intensity', 0, 10 ).onChange(v => lightAmbient.intensity = v);
+  gui.add( directionalLightGui, 'intensity', 0, 10 ).onChange(v => light.intensity = v);
 }
 
 export { createLights };
