@@ -11,16 +11,14 @@ import { colorStandardMaterial } from './components/materials/color.js';
 
 class World {
   constructor() {
+    console.log('World');
     this.scene = createScene();
     this.renderer = createRenderer();
     this.camera = createCamera();
-    this.loop = new Loop(this.camera, this.scene, this.renderer);
-    // this.resizer = new Resizer(this.camera, this.renderer);
-    // this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
-    // this.lights = createLights(this.scene);
+    this.resizer = new Resizer(this.camera, this.renderer);
+    this.lights = createLights(this.scene);
 
-    // this.orbitControls.reset();
-
+    // comp with cubes
     const nItems = 4;
     for (let i = 0; i < nItems; i++) {
       for (let j = 0; j < nItems; j++) {
@@ -29,17 +27,25 @@ class World {
         temp_cube.position.y = (j - nItems/2) * 1.2 + 0.5;
         temp_cube.position.z = 0;
         this.scene.add( temp_cube );
-        this.loop.updatables.push(temp_cube);
+        // this.loop.updatables.push(temp_cube);
       }
     }
 
-    // const geometryPlane = new PlaneGeometry(300, 300, 4, 4);
-    // const materialFloor = colorStandardMaterial(0xffffff);
-    // const floor = new Mesh(geometryPlane, materialFloor);
-    // floor.receiveShadow = true;
-    // floor.rotation.x = MathUtils.degToRad(270);
-    // floor.position.y = -3;
-    // this.scene.add(floor);
+    // floor
+    const geometryPlane = new PlaneGeometry(300, 300, 4, 4);
+    const materialFloor = colorStandardMaterial(0xeeddff);
+    const floor = new Mesh(geometryPlane, materialFloor);
+    floor.receiveShadow = true;
+    floor.rotation.x = MathUtils.degToRad(270);
+    floor.position.y = -3;
+    this.scene.add(floor);
+
+    // path tracer needs to be defined after the scene has been created (in loop)
+    this.loop = new Loop(this.camera, this.scene, this.renderer);
+
+    this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
+    this.orbitControls.addEventListener( 'change', () => this.loop.pathTracer.updateCamera() );
+    this.orbitControls.update();
   }
 
   start() {

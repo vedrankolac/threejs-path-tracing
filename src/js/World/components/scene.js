@@ -14,8 +14,8 @@ const createScene = () => {
   // scene.environment = pmremGenerator.fromScene( new RoomEnvironment(), 0.001 ).texture;
 
   const texture = new GradientEquirectTexture();
-  texture.bottomColor.set( 0xffffff );
-  texture.bottomColor.set( 0x666666 );
+  texture.bottomColor.set( 0xeeddff );
+  texture.bottomColor.set( 0xeeddff );
   texture.update();
   scene.environment = texture;
   scene.background = texture;

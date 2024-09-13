@@ -11,10 +11,11 @@ class Loop {
     this.clock = new Clock();
 
     const settings = getScaledSettings();
-    this.pathTracer = new WebGLPathTracer(this.renderer);
+    this.pathTracer = new WebGLPathTracer( this.renderer );
     this.pathTracer.renderScale = settings.renderScale;
     this.pathTracer.tiles.setScalar( settings.tiles );
-    this.pathTracer.setScene(this.scene, this.camera);
+    this.pathTracer.setScene( this.scene, this.camera );
+    this.pathTracer.renderSample();
   }
 
   start() {
@@ -25,8 +26,6 @@ class Loop {
       // render a frame
       // this.renderer.render(this.scene, this.camera);
       this.pathTracer.renderSample();
-      // console.log('rs', this.pathTracer);
-      
     });
   }
 
