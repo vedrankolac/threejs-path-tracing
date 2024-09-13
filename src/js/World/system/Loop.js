@@ -1,4 +1,6 @@
 import { Clock } from 'three';
+import { WebGLPathTracer } from 'three-gpu-pathtracer';
+import { getScaledSettings } from '../textures/getScaledSettings';
 
 class Loop {
   constructor(camera, scene, renderer) {
@@ -7,6 +9,12 @@ class Loop {
     this.renderer = renderer;
     this.updatables = [];
     this.clock = new Clock();
+
+    const settings = getScaledSettings();
+    this.pathTracer = new WebGLPathTracer(this.renderer);
+    this.pathTracer.renderScale = settings.renderScale;
+    this.pathTracer.tiles.setScalar( settings.tiles );
+    this.pathTracer.setScene(this.scene, this.camera);
   }
 
   start() {
@@ -15,7 +23,10 @@ class Loop {
       this.tick();
 
       // render a frame
-      this.renderer.render(this.scene, this.camera);
+      // this.renderer.render(this.scene, this.camera);
+      this.pathTracer.renderSample();
+      // console.log('rs', this.pathTracer);
+      
     });
   }
 

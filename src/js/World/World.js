@@ -9,18 +9,17 @@ import { Resizer } from './system/Resizer.js'
 import { PlaneGeometry, Mesh, MathUtils } from 'three';
 import { colorStandardMaterial } from './components/materials/color.js';
 
-
 class World {
   constructor() {
+    this.scene = createScene();
     this.renderer = createRenderer();
-    this.scene = createScene(this.renderer);
     this.camera = createCamera();
     this.loop = new Loop(this.camera, this.scene, this.renderer);
-    this.resizer = new Resizer(this.camera, this.renderer);
-    this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
-    this.lights = createLights(this.scene);
+    // this.resizer = new Resizer(this.camera, this.renderer);
+    // this.orbitControls = new OrbitControls(this.camera, this.renderer.domElement)
+    // this.lights = createLights(this.scene);
 
-    this.orbitControls.reset();
+    // this.orbitControls.reset();
 
     const nItems = 4;
     for (let i = 0; i < nItems; i++) {
@@ -34,13 +33,13 @@ class World {
       }
     }
 
-    const geometryPlane = new PlaneGeometry(300, 300, 4, 4);
-    const materialFloor = colorStandardMaterial(0xffffff);
-    const floor = new Mesh(geometryPlane, materialFloor);
-    floor.receiveShadow = true;
-    floor.rotation.x = MathUtils.degToRad(270);
-    floor.position.y = -3;
-    this.scene.add(floor);
+    // const geometryPlane = new PlaneGeometry(300, 300, 4, 4);
+    // const materialFloor = colorStandardMaterial(0xffffff);
+    // const floor = new Mesh(geometryPlane, materialFloor);
+    // floor.receiveShadow = true;
+    // floor.rotation.x = MathUtils.degToRad(270);
+    // floor.position.y = -3;
+    // this.scene.add(floor);
   }
 
   start() {
