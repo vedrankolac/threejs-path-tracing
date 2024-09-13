@@ -8,19 +8,19 @@ import { createLights } from './components/lights.js';
 import { colorStandardMaterial } from './components/materials/color.js';
 import { cube } from './components/meshes/cube.js'
 import { sphere } from './components/meshes/sphere.js'
+import { Resizer } from './system/Resizer.js'
 
 class World {
   constructor() {
-    const renderer = createRenderer();
-    const scene = createScene(renderer);
-    const camera = createCamera();
-    this.loop = new Loop(camera, scene, renderer);
-    console.log('something');
+    this.renderer = createRenderer();
+    this.scene = createScene(this.renderer);
+    this.camera = createCamera();
+    this.loop = new Loop(this.camera, this.scene, this.renderer);
+    this.resizer = new Resizer(this.camera, this.renderer);
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+    this.lights = createLights(this.scene);
 
-    const controls = new OrbitControls(camera, renderer.domElement)
-    const lights = createLights(scene);
     const material = colorStandardMaterial(0x3333ff);
-
     const nItems = 4;
     for (let i = 0; i < nItems; i++) {
       for (let j = 0; j < nItems; j++) {
@@ -28,7 +28,7 @@ class World {
         temp_cube.position.x = (i - nItems/2) * 1.2 + 0.5;
         temp_cube.position.y = (j - nItems/2) * 1.2 + 0.5;
         temp_cube.position.z = -4;
-        scene.add( temp_cube );
+        this.scene.add( temp_cube );
         this.loop.updatables.push(temp_cube);
       }
     }
