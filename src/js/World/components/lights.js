@@ -2,7 +2,7 @@ import { AmbientLight, DirectionalLight, DirectionalLightHelper } from 'three';
 import GUI from 'lil-gui';
 
 const createLights = scene => {
-  const lightAmbient = new AmbientLight({ color: 0xffffff, intensity: 1.5 })
+  const lightAmbient = new AmbientLight({ color: 0xffffff, intensity: 10 })
   scene.add(lightAmbient)
 
   const light = new DirectionalLight('white', 1);
