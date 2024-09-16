@@ -1,5 +1,5 @@
 # parcel-threejs-boilerplate
-Boilerplate for a fast start with three.js
+Boilerplate for a fast start with `three.js` and `three-gpu-pathtracer`
 
 ### Requirements
 Node: v16.20.2
@@ -9,7 +9,7 @@ Node: v16.20.2
 npm start
 ```
 
-### how to deploy for github pages
+### How to deploy for github pages
 ```bash
 rm -r build
 npm run build
