@@ -6,8 +6,6 @@ import { createCamera } from './components/camera.js';
 import { createLights } from './components/lights.js';
 import { Resizer } from './system/Resizer.js'
 import simpleScene from './components/simpleScene.js';
-import { Structure } from './components/bodies/Structure.js';
-
 
 class World {
   constructor() {
@@ -17,12 +15,10 @@ class World {
     this.camera = createCamera();
     this.resizer = new Resizer(this.camera, this.renderer);
     this.lights = createLights(this.scene);
-    // simpleScene(this.scene);
+    simpleScene(this.scene);
 
-    this.structure = new Structure(this.scene, null);
-    this.structure.create();
-
-    this.intID = setInterval(this.setLoop, 1000);
+    // call setLoop with a delay so we have a scene prepared for pathtracer
+    this.intID = setInterval(this.setLoop, 500);
   }
 
   setLoop = () => {
